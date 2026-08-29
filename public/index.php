@@ -4,6 +4,18 @@
 require_once __DIR__ . '/../core/Database.php';
 require_once __DIR__ . '/../core/Router.php';
 require_once __DIR__ . '/../core/Auth.php';
+require_once __DIR__ . '/../core/Validator.php';
+
+// Models
+require_once __DIR__ . '/../models/Company.php';
+require_once __DIR__ . '/../models/Contact.php';
+require_once __DIR__ . '/../models/Lead.php';
+require_once __DIR__ . '/../models/Deal.php';
+
+// Controllers
+require_once __DIR__ . '/../controllers/CompanyController.php';
+require_once __DIR__ . '/../controllers/LeadController.php';
+require_once __DIR__ . '/../controllers/DealController.php';
 
 $router = new Router();
 $auth = new Auth();
@@ -21,7 +33,8 @@ $router->post('/login', function() use ($auth) {
         header('Location: /dashboard');
         exit;
     } else {
-        echo "Invalid credentials";
+        $error = "نام کاربری یا رمز عبور اشتباه است";
+        include __DIR__ . '/../views/auth/login.php';
     }
 });
 
@@ -63,6 +76,63 @@ $router->get('/logout', function() use ($auth) {
     $auth->logout();
     header('Location: /login');
     exit;
+});
+
+// Company Routes
+$router->get('/companies', function() use ($auth) {
+    if (!$auth->check()) { header('Location: /login'); exit; }
+    $controller = new CompanyController();
+    $controller->index();
+});
+
+$router->get('/companies/profile', function() use ($auth) {
+    if (!$auth->check()) { header('Location: /login'); exit; }
+    $controller = new CompanyController();
+    $controller->profile();
+});
+
+$router->post('/companies/store', function() use ($auth) {
+    if (!$auth->check()) { header('Location: /login'); exit; }
+    $controller = new CompanyController();
+    $controller->store();
+});
+
+// Lead Routes
+$router->get('/leads', function() use ($auth) {
+    if (!$auth->check()) { header('Location: /login'); exit; }
+    $controller = new LeadController();
+    $controller->index();
+});
+
+$router->post('/leads/store', function() use ($auth) {
+    if (!$auth->check()) { header('Location: /login'); exit; }
+    $controller = new LeadController();
+    $controller->store();
+});
+
+$router->get('/leads/delete', function() use ($auth) {
+    if (!$auth->check()) { header('Location: /login'); exit; }
+    $controller = new LeadController();
+    $controller->delete();
+});
+
+// Deal Routes
+$router->get('/deals/pipeline', function() use ($auth) {
+    if (!$auth->check()) { header('Location: /login'); exit; }
+    $controller = new DealController();
+    $controller->pipeline();
+});
+
+$router->post('/deals/store', function() use ($auth) {
+    if (!$auth->check()) { header('Location: /login'); exit; }
+    $controller = new DealController();
+    $controller->store();
+});
+
+$router->post('/deals/move', function() use ($auth) {
+    if (!$auth->check()) { header('Location: /login'); exit; }
+    $controller = new DealController();
+    $controller->move();
 });
 
 $router->dispatch();
