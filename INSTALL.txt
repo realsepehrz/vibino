@@ -1,0 +1,42 @@
+# Quick Start Guide - Iranian CRM
+
+## 1. Database Setup
+```bash
+mysql -u root -p
+CREATE DATABASE iranian_crm CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci;
+exit
+mysql -u root -p iranian_crm < database.sql
+```
+
+## 2. Environment Config
+```bash
+cp .env.example .env
+# Edit .env with your database credentials
+nano .env
+```
+
+## 3. Permissions
+```bash
+chmod -R 755 .
+chmod -R 777 assets/uploads
+mkdir -p logs
+chmod 777 logs
+```
+
+## 4. Web Server
+Point your domain root to the `/public` directory.
+
+**Apache**: Ensure `.htaccess` is enabled.
+**Nginx**: Use `try_files $uri $uri/ /index.php?$query_string;`
+
+## 5. Cron Job (Required for Automation)
+```bash
+* * * * * /usr/bin/php /path/to/cron.php >> logs/cron.log 2>&1
+```
+
+## 6. Login
+URL: http://your-domain.com/login
+Email: admin@crm.local
+Pass: admin123
+
+⚠️ CHANGE PASSWORD IMMEDIATELY!
