@@ -27,7 +27,7 @@ class LeadController {
         $pageTitle = 'مدیریت سرنخ‌ها';
         $currentUser = $this->auth->user();
         
-        include 'views/leads/index.php';
+        include __DIR__ . '/../views/leads/index.php';
     }
 
     public function store() {
