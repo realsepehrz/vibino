@@ -59,12 +59,12 @@ class Validator {
 
     // Convert Persian digits to English for validation
     public static function toEnglishDigits(string $str): string {
-        $persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
-        $arabicNumbers  = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $arabicNumbers  = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
         
         for($i = 0; $i < 10; $i++) {
-            $str = preg_replace($persianNumbers[$i], $i, $str);
-            $str = preg_replace($arabicNumbers[$i], $i, $str);
+            $str = str_replace($persianNumbers[$i], (string)$i, $str);
+            $str = str_replace($arabicNumbers[$i], (string)$i, $str);
         }
         return $str;
     }

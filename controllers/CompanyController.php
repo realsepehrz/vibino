@@ -28,7 +28,7 @@ class CompanyController {
         $pageTitle = 'شرکت‌ها';
         $currentUser = $this->auth->user();
         
-        include 'views/companies/index.php';
+        include __DIR__ . '/../views/companies/index.php';
     }
 
     // Show company profile (360 view)
@@ -53,14 +53,14 @@ class CompanyController {
         $pageTitle = $company['name'];
         $currentUser = $this->auth->user();
         
-        include 'views/companies/profile.php';
+        include __DIR__ . '/../views/companies/profile.php';
     }
 
     // Show create form
     public function create() {
         $pageTitle = 'ایجاد شرکت جدید';
         $currentUser = $this->auth->user();
-        include 'views/companies/create.php';
+        include __DIR__ . '/../views/companies/create.php';
     }
 
     // Store new company

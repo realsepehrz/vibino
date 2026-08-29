@@ -148,4 +148,4 @@
     <?php endif; ?>
 </div>
 
-<?php $content = ob_get_clean(); include 'views/layout.php'; ?>
+<?php $content = ob_get_clean(); include __DIR__ . '/layout.php'; ?>

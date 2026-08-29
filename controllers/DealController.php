@@ -19,7 +19,7 @@ class DealController {
         $pageTitle = 'خط لوله فروش';
         $currentUser = $this->auth->user();
         
-        include 'views/deals/pipeline.php';
+        include __DIR__ . '/../views/deals/pipeline.php';
     }
 
     public function store() {
